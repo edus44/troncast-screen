@@ -11,7 +11,7 @@
 
 <script>
 
-const debug = require('debug')('tc:channel-slot-board')
+// const debug = require('debug')('tc:channel-slot-board')
 
 const ChannelSlot = require('./ChannelSlot.vue')
 

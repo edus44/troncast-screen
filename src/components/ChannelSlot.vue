@@ -1,7 +1,7 @@
 <template>
     <div class="channel-slot">
         <span>#{{ slotId }}</span>
-        <webview ref="webview" :src="src" :preload="preloadSrc"></webview>
+        <webview ref="webview" :src="srcFormal" :preload="preloadSrc"></webview>
     </div>
 </template>
 
@@ -50,12 +50,15 @@ const eventNames = [
 ]
 
 module.exports = {
+    props:['slotId','src'],
     computed:{
         preloadSrc(){
             return 'file://' + this.$store.state.localPath + '/lib/TroncastChannel.js'
-        } 
+        },
+        srcFormal(){
+            return this.src+'#troncastChannelSlotId='+this.slotId
+        }
     },
-    props:['slotId','src'],
     watch:{
         src(val){
             this.debug('updated-src',val)
