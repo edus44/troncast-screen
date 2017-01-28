@@ -7,7 +7,7 @@
 
 <script>
 
-const Debug = require('debug')
+import Debug from 'debug'
 const levels = {
     '-1' : 'debug',
     '0' : 'log',
@@ -49,7 +49,7 @@ const eventNames = [
     // 'will-navigate',
 ]
 
-module.exports = {
+export default {
     props:['slotId','src'],
     computed:{
         preloadSrc(){

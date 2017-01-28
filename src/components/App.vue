@@ -7,10 +7,10 @@
 
 <script>
 
-const HeaderBar = require('./HeaderBar.vue')
-const ChannelSlotBoard = require('./ChannelSlotBoard.vue')
+import HeaderBar from './HeaderBar.vue'
+import ChannelSlotBoard from './ChannelSlotBoard.vue'
 
-module.exports = {
+export default {
     name: 'App',
     beforeCreate(){
         let localPath = new URLSearchParams(window.location.search).get('localPath')

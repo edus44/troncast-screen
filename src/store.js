@@ -1,5 +1,5 @@
-const Vue = require('vue')
-const Vuex = require('vuex')
+import Vue from 'vue'
+import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
@@ -15,4 +15,4 @@ const mutations = {
 }
 
 
-module.exports = new Vuex.Store({ state, mutations })
+export default new Vuex.Store({ state, mutations })

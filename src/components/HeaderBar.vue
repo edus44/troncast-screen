@@ -1,11 +1,11 @@
 <template>
     <section id="header-bar">
-        works great
+        Troncast
     </section>
 </template>
 
 <script>
-module.exports = {
+export default {
 }
 </script>
 

@@ -1,7 +1,7 @@
-const Vue = require('vue')
-const App = require('./components/App.vue')
+import Vue from 'vue'
+import App from './components/App.vue'
 
-const store = require('./store.js')
+import store from './store.js'
 
 require('debug').enable('tc*')
 

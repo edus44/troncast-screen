@@ -13,12 +13,13 @@
 
 // const debug = require('debug')('tc:channel-slot-board')
 
-const ChannelSlot = require('./ChannelSlot.vue')
+import ChannelSlot from './ChannelSlot.vue'
 
-module.exports = {
+export default {
     data:()=>({
         channels:[
-            'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo.html'
+            'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
+            'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
             // 'http://edus44.github.io',
             // 'http://status.bitbucket.com',
             // 'http://status.github.com',
