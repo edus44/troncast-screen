@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/edus44/troncast-screen#readme",
   "dependencies": {
-    "vue": "^2.1.10"
+    "debug": "^2.6.0",
+    "vue": "^2.1.10",
+    "vuex": "^2.1.1"
   },
   "devDependencies": {
     "cross-env": "^3.0.0",

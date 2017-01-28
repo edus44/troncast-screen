@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>mine</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+<body>
+hola
+<div id="app">
+    <button @click="reload">reload</button>
+    <a href="http://status.github.com">go to github</a>
+</div>
+
+<script>
+console.log('hello')
+
+var app = new Vue({
+    el: '#app',
+    methods: {
+        reload(){
+            console.log('reload')
+            window.location.reload()
+        }
+    }
+})
+</script>
+    
+</body>
+</html>

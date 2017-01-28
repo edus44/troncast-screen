@@ -1,18 +1,23 @@
 <template>
-    <section id="app">
+    <section class="app">
         <HeaderBar></HeaderBar>
-        <WebviewWrapper></WebviewWrapper>
+        <ChannelSlotBoard></ChannelSlotBoard>
     </section>
 </template>
 
 <script>
 
 const HeaderBar = require('./HeaderBar.vue')
-const WebviewWrapper = require('./WebviewWrapper.vue')
+const ChannelSlotBoard = require('./ChannelSlotBoard.vue')
 
 module.exports = {
     name: 'App',
-    components :{HeaderBar,WebviewWrapper}
+    beforeCreate(){
+        let localPath = new URLSearchParams(window.location.search).get('localPath')
+        this.$store.commit('SET_LOCAL_PATH',localPath)
+
+    },
+    components :{HeaderBar,ChannelSlotBoard}
 }
 </script>
 
@@ -23,7 +28,7 @@ module.exports = {
     box-sizing: border-box;
 }
 
-body,html,#app{
+body,html,section.app{
     width: 100%;
     height: 100%;
     min-height: 100%;
@@ -33,7 +38,7 @@ body,html,#app{
     font-size: 10px;
 }
 
-section#app{
+section.app{
     display: flex;
     flex-direction : column;
     position: absolute;
