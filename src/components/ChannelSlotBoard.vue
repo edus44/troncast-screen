@@ -2,8 +2,7 @@
     <section class="channel-slot-board" :class="{horizontal,reverse,mosaic}">
         <ChannelSlot
             v-for="(channel,index) in channels" 
-            :slotId="index+1" 
-            :src="channel"
+            :channel="channel"
             :mosaic="mosaic"
         ></ChannelSlot>
     </section>
@@ -14,10 +13,11 @@
 // const debug = require('debug')('tc:channel-slot-board')
 
 import ChannelSlot from './ChannelSlot.vue'
+import shortid  from 'shortid'
 
 export default {
     data:()=>({
-        channels:[
+        channelsList:[
             'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
             'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
             // 'http://edus44.github.io',
@@ -29,6 +29,20 @@ export default {
         reverse: false,
         mosaic: true
     }),
+    computed:{
+        channels(){
+            return this.channelsList.map((channel,idx)=>{
+                let name = 'demo'
+
+                return {
+                    index: idx+1,
+                    name:name,
+                    src: channel,
+                    id: idx+'-'+name+'-'+shortid.generate()
+                }
+            })
+        }
+    },
     components: {ChannelSlot}
 }
 </script>

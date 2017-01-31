@@ -1,7 +1,7 @@
 <template>
     <div class="channel-slot">
-        <span>#{{ slotId }}</span>
         <webview ref="webview" :src="srcFormal" :preload="preloadSrc"></webview>
+        <div><b>#{{ channel.index }}</b><span>{{ channel.id }}</span></div>
     </div>
 </template>
 
@@ -50,13 +50,13 @@ const eventNames = [
 ]
 
 export default {
-    props:['slotId','src'],
+    props:['channel'],
     computed:{
         preloadSrc(){
             return 'file://' + this.$store.state.localPath + '/lib/TroncastChannel.js'
         },
         srcFormal(){
-            return this.src+'#troncastChannelSlotId='+this.slotId
+            return this.channel.src+'#troncastChannelSlotId='+this.channel.id
         }
     },
     watch:{
@@ -65,8 +65,8 @@ export default {
         }
     },
     created(){
-        this.debug = Debug('tc:channel-slot:'+this.slotId)
-        this.consoleDebug = Debug('tc:channel-slot:'+this.slotId+':console')
+        this.debug = Debug('tc:channel-slot:'+this.channel.id)
+        this.consoleDebug = Debug('tc:channel-slot:'+this.channel.id+':console')
         this.debug('src',this.src)
         this.debug('preload-src',this.preloadSrc)
     },
@@ -102,21 +102,36 @@ export default {
     position: relative;
     border-left:1px solid #aaa;
     border-bottom:1px solid #aaa;
+    flex-direction:column;
 
     webview{
         flex:1;
         background-color: #fff;
     }
-    span{
+    div{
         position: absolute;
-        background-color: #333;
-        padding:.5rem;
+
+        bottom:0;
+        left:2rem;
         font-size: 1.4rem;
-        border-radius: 4px;
-        opacity: .8;
-        right: 3rem;
-        top: 1rem;
         font-weight: bold;
+        text-shadow:1px 1px 1px rgba(0,0,0,.3);
+        b{
+            padding:.5rem 1.4rem .2rem;
+            background-color: rgba(0,0,0,0.5);
+            vertical-align: bottom;
+            font-size: 3rem;
+            display: inline-block;
+            border-radius: 4px 4px 0 0;
+        }
+        span{
+            padding: .5rem 1rem .5rem .5rem;
+            border-radius: 0 4px 0 0;
+            vertical-align: bottom;
+            display: inline-block;
+            background-color: rgba(0,0,0,0.5);
+            font-size: 1.4rem;
+        }
     }
 }
 

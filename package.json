@@ -26,6 +26,8 @@
   "homepage": "https://github.com/edus44/troncast-screen#readme",
   "dependencies": {
     "debug": "^2.6.0",
+    "shortid": "^2.2.6",
+    "socket.io-client": "^1.7.2",
     "vue": "^2.1.10",
     "vuex": "^2.1.1"
   },
