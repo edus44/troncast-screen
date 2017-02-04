@@ -75,10 +75,10 @@ export default {
         })
 
         el.addEventListener('dom-ready',()=>{
-            // el.openDevTools()
+            el.openDevTools()
         })
 
-        this.debug('webview-binded')
+        this.debug('webview-binded2')
     }
 }
 </script>

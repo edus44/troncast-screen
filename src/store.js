@@ -62,11 +62,11 @@ let store = new Vuex.Store({ state, mutations, actions })
 socket.on('repository:list',list=>{
     store.commit('SET_CHANNELS',list)
 })
-socket.on('remote:remove-slot',payload=>{
-    store.dispatch('removeSlot',payload)
+socket.on('remote:remove-slot',pointer=>{
+    store.dispatch('removeSlot',pointer)
 })
-socket.on('remote:select-channel',payload=>{
-    store.dispatch('selectChannel',payload)
+socket.on('remote:select-channel',pointer=>{
+    store.dispatch('selectChannel',pointer)
 })
 socket.on('remote:add-slot',()=>{
     store.dispatch('addSlot')
@@ -74,6 +74,5 @@ socket.on('remote:add-slot',()=>{
 socket.on('remote:request-slots',()=>{
     store.dispatch('sendSlots')
 })
-
 
 export default store 
