@@ -23,6 +23,9 @@ const mutations = {
     },
     ADD_SLOT(state){
         state.slots.push(null)
+    },
+    SELECT_CHANNEL(state,{channelId,index}){
+        state.slots.splice(index,1,channelId)
     }
 }
 
@@ -36,6 +39,11 @@ const actions = {
         }else{
             throw new Error('Invalid slot to remove '+channelId+position)
         }
+    },
+    selectChannel({commit,dispatch},{channelId,position}){
+        let index = position-1
+        commit('SELECT_CHANNEL',{channelId,index})
+        dispatch('sendSlots')
     },
     addSlot({commit,dispatch}){
         commit('ADD_SLOT')
@@ -57,13 +65,15 @@ socket.on('repository:list',list=>{
 socket.on('remote:remove-slot',payload=>{
     store.dispatch('removeSlot',payload)
 })
+socket.on('remote:select-channel',payload=>{
+    store.dispatch('selectChannel',payload)
+})
 socket.on('remote:add-slot',()=>{
     store.dispatch('addSlot')
 })
 socket.on('remote:request-slots',()=>{
     store.dispatch('sendSlots')
 })
-
 
 
 export default store 
