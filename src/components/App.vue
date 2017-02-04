@@ -12,12 +12,15 @@ import ChannelSlotBoard from './ChannelSlotBoard.vue'
 
 export default {
     name: 'App',
+    components :{HeaderBar,ChannelSlotBoard},
     beforeCreate(){
         let localPath = new URLSearchParams(window.location.search).get('localPath')
         this.$store.commit('SET_LOCAL_PATH',localPath)
-
     },
-    components :{HeaderBar,ChannelSlotBoard}
+    created(){
+        this.$store.dispatch('requestData')
+        this.$store.dispatch('sendSlots')
+    }
 }
 </script>
 

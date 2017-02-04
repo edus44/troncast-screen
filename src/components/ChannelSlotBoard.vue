@@ -1,45 +1,31 @@
 <template>
     <section class="channel-slot-board" :class="{horizontal,reverse,mosaic}">
         <ChannelSlot
-            v-for="(channel,index) in channels" 
+            v-for="channel,index in channelList" 
             :channel="channel"
-            :mosaic="mosaic"
+            :position="index+1"
         ></ChannelSlot>
+        <div v-if="!channelList.length">No slots</div>
     </section>
 </template>
 
 <script>
 
-// const debug = require('debug')('tc:channel-slot-board')
-
 import ChannelSlot from './ChannelSlot.vue'
-import shortid  from 'shortid'
 
 export default {
     data:()=>({
-        channelsList:[
-            'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
-            'file:///home/eduardo.hidalgo/repo/own/troncast/screen/lib/demo_a.html',
-            // 'http://edus44.github.io',
-            // 'http://status.bitbucket.com',
-            // 'http://status.github.com',
-            // 'http://meneame.net',
-        ],
         horizontal: true,
         reverse: false,
         mosaic: true
     }),
     computed:{
-        channels(){
-            return this.channelsList.map((channel,idx)=>{
-                let name = 'demo'
-
-                return {
-                    index: idx+1,
-                    name:name,
-                    src: channel,
-                    id: idx+'-'+name+'-'+shortid.generate()
-                }
+        channelList(){
+            let {state} = this.$store
+            return state.slots.map(channelId=>{
+                return state.channels.find(channel=>{
+                    return channel.id == channelId
+                })
             })
         }
     },

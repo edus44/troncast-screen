@@ -1,95 +1,36 @@
 <template>
     <div class="channel-slot">
-        <webview ref="webview" :src="srcFormal" :preload="preloadSrc"></webview>
-        <div><b>#{{ channel.index }}</b><span>{{ channel.id }}</span></div>
+        <WebviewWrapper 
+            v-if="channel" 
+            :src="srcFormal" 
+            :preload="preloadSrc" 
+            :position="position"
+        ></WebviewWrapper>
+        <p v-else>No channel selected</p>
+        <div class="legend">
+            <b>#{{ position }}</b><span v-if="channel">{{ channel.name }}</span>
+        </div>
     </div>
 </template>
 
 <script>
-
-import Debug from 'debug'
-const levels = {
-    '-1' : 'debug',
-    '0' : 'log',
-    '1' : 'warn',
-    '2' : 'error'
-}
-const eventNames = [
-    'close',
-    // 'console-message',
-    'crashed',
-    'destroyed',
-    'devtools-closed',
-    'devtools-focused',
-    'devtools-opened',
-    // 'did-change-theme-color',
-    'did-fail-load',
-    // 'did-finish-load',
-    // 'did-frame-finish-load',
-    // 'did-get-redirect-request',
-    // 'did-get-response-details',
-    // 'did-navigate',
-    // 'did-navigate-in-page',
-    'did-start-loading',
-    'did-stop-loading',
-    'dom-ready',
-    // 'enter-html-full-screen',
-    // 'found-in-page',
-    'gpu-crashed',
-    // 'ipc-message',
-    // 'leave-html-full-screen',
-    // 'load-commit',
-    'media-paused',
-    'media-started-playing',
-    // 'new-window',
-    // 'page-favicon-updated',
-    // 'page-title-updated',
-    'plugin-crashed',
-    // 'update-target-url',
-    // 'will-navigate',
-]
+import WebviewWrapper from './WebviewWrapper.vue'
 
 export default {
-    props:['channel'],
+    components:{WebviewWrapper},
+    props:['channel','position'],
     computed:{
         preloadSrc(){
             return 'file://' + this.$store.state.localPath + '/lib/TroncastChannel.js'
         },
         srcFormal(){
-            return this.channel.src+'#troncastChannelSlotId='+this.channel.id
+            return this.channel && this.channel.entry+'#?id='+this.channel.id+'&position='+this.position
         }
     },
     watch:{
         src(val){
             this.debug('updated-src',val)
         }
-    },
-    created(){
-        this.debug = Debug('tc:channel-slot:'+this.channel.id)
-        this.consoleDebug = Debug('tc:channel-slot:'+this.channel.id+':console')
-        this.debug('src',this.src)
-        this.debug('preload-src',this.preloadSrc)
-    },
-    mounted(){
-        let wv = this.$refs.webview
-
-        //Forward console message
-        wv.addEventListener('console-message',(e)=>{
-            this.consoleDebug(levels[e.level],e.message)
-        })
-
-        //Listen every desired webview event
-        eventNames.forEach((eventName)=>{
-            wv.addEventListener(eventName,()=>{
-                this.debug('event-'+eventName)
-            })
-        })
-
-        wv.addEventListener('dom-ready',()=>{
-            // wv.openDevTools()
-        })
-
-        this.debug('webview-binded')
     }
 }
 </script>
@@ -104,11 +45,7 @@ export default {
     border-bottom:1px solid #aaa;
     flex-direction:column;
 
-    webview{
-        flex:1;
-        background-color: #fff;
-    }
-    div{
+    .legend{
         position: absolute;
 
         bottom:0;
