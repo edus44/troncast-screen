@@ -19438,7 +19438,7 @@ module.exports = __webpack_amd_options__;
 
 
 const debug = __webpack_require__(9)('tc:socket')
-const socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()('/screen')
+const socket = __WEBPACK_IMPORTED_MODULE_0_socket_io_client___default()('http://127.0.0.1:13370/screen')
 
 
 //Debug socket io events
