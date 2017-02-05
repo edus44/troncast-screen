@@ -14,8 +14,11 @@ export default {
     name: 'App',
     components :{HeaderBar,ChannelSlotBoard},
     beforeCreate(){
-        let localPath = new URLSearchParams(window.location.search).get('localPath')
+        let params = new URLSearchParams(window.location.search)
+        let localPath = params.get('localPath')
+        let remoteUri = params.get('remoteUri')
         this.$store.commit('SET_LOCAL_PATH',localPath)
+        this.$store.commit('SET_REMOTE_URI',remoteUri)
     },
     created(){
         this.$store.dispatch('requestData')
@@ -26,6 +29,7 @@ export default {
 
 
 <style lang="less">
+@import '../assets/fonts';
 
 *,*:before, *:after {
     box-sizing: border-box;
@@ -46,10 +50,11 @@ section.app{
     flex-direction : column;
     position: absolute;
     
-    font-family: sans-serif;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 300;
     font-size: 2rem;
-    background-color: #222;
-    color:#eee;
+    background-color: #3273dc;
+    color:white;
 }
 
 </style>

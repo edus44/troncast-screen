@@ -7,13 +7,18 @@ import socket from './socket'
 
 const state = {
     localPath: '',
+    remoteUri: '',
     channels: [],
-    slots: [null,'status',null,'decisionator'],
+    // slots: [null,'status',null,'decisionator'],
+    slots: []
 }
 
 const mutations = {
     SET_LOCAL_PATH(state,value){
         state.localPath = value || ''
+    },
+    SET_REMOTE_URI(state,value){
+        state.remoteUri = value || ''
     },
     SET_CHANNELS(state,value){
         state.channels = value && value.length ? value : []

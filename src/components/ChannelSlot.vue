@@ -1,14 +1,18 @@
 <template>
     <div class="channel-slot">
-        <WebviewWrapper 
-            v-if="channel" 
-            :src="srcFormal" 
-            :preload="preloadSrc" 
-            :position="position"
-        ></WebviewWrapper>
-        <p v-else>No channel selected</p>
-        <div class="legend">
-            <b>#{{ position }}</b><span v-if="channel">{{ channel.name }}</span>
+        <template v-if="channel">
+            <WebviewWrapper 
+                :src="srcFormal" 
+                :preload="preloadSrc" 
+                :position="position"
+            ></WebviewWrapper>
+            <div class="legend">
+                <i>#{{ position }}</i><span>{{ channel.name }}</span>
+            </div>
+        </template>
+        <div v-else class="message">
+            <i>#{{ position }}</i>
+            <p>Select a channel</p>
         </div>
     </div>
 </template>
@@ -41,21 +45,20 @@ export default {
     flex:1;
     display: flex;
     position: relative;
-    border-left:1px solid #aaa;
-    border-bottom:1px solid #aaa;
+    // border-left:1px solid #aaa;
+    // border-bottom:1px solid #aaa;
     flex-direction:column;
 
     .legend{
         position: absolute;
-
+        opacity: .8;
         bottom:0;
         left:2rem;
         font-size: 1.4rem;
-        font-weight: bold;
-        text-shadow:1px 1px 1px rgba(0,0,0,.3);
-        b{
+        
+        i{
             padding:.5rem 1.4rem .2rem;
-            background-color: rgba(0,0,0,0.5);
+            background-color: #3273dc;
             vertical-align: bottom;
             font-size: 3rem;
             display: inline-block;
@@ -66,9 +69,19 @@ export default {
             border-radius: 0 4px 0 0;
             vertical-align: bottom;
             display: inline-block;
-            background-color: rgba(0,0,0,0.5);
-            font-size: 1.4rem;
+            background-color: #3273dc;
+            font-size: 1.6rem;
         }
+    }
+
+    .message{
+        font-size: 40px;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        display: flex;
+        flex:1;
+
     }
 }
 

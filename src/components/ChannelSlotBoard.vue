@@ -5,7 +5,9 @@
             :channel="channel"
             :position="index+1"
         ></ChannelSlot>
-        <div v-if="!channelList.length">No slots</div>
+        <div class="message" v-if="!channelList.length">
+            <span>Add some slots</span>
+        </div>
     </section>
 </template>
 
@@ -51,6 +53,14 @@ section.channel-slot-board{
         .channel-slot{
             flex-basis:50%;
         }
+    }
+    .message{
+        font-size: 40px;
+        justify-content:center;
+        align-items:center;
+        display: flex;
+        flex:1;
+
     }
 }
 
