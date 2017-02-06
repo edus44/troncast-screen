@@ -10,7 +10,8 @@ const state = {
     remoteUri: '',
     channels: [],
     // slots: [null,'status',null,'decisionator'],
-    slots: []
+    // slots: []
+    slots: [null]
 }
 
 const mutations = {

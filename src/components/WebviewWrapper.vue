@@ -17,7 +17,7 @@ const eventNames = [
     'crashed',
     'destroyed',
     'devtools-closed',
-    'devtools-focused',
+    // 'devtools-focused',
     'devtools-opened',
     // 'did-change-theme-color',
     'did-fail-load',
@@ -33,7 +33,7 @@ const eventNames = [
     // 'enter-html-full-screen',
     // 'found-in-page',
     'gpu-crashed',
-    // 'ipc-message',
+    'ipc-message',
     // 'leave-html-full-screen',
     // 'load-commit',
     'media-paused',
@@ -46,21 +46,23 @@ const eventNames = [
     // 'will-navigate',
 ]
 
+
 export default {
-    props:['src','preload','position'],
+    props:['src','preload','description'],
     watch:{
         src(val){
             this.debug('updated-src',val)
         }
     },
     created(){
-        this.debug = Debug('tc:channel-slot-webview:'+this.position)
-        this.consoleDebug = Debug('tc:channel-slot-webview:'+this.position+':console')
+        this.debug = Debug('tc:channel-slot-webview:'+this.description.position)
+        this.consoleDebug = Debug('tc:channel-slot-webview:'+this.description.position+':console')
         this.debug('src',this.src)
         this.debug('preload-src',this.preload)
     },
     mounted(){
         let el = this.$el
+
 
         //Forward console message
         el.addEventListener('console-message',(e)=>{
@@ -74,11 +76,27 @@ export default {
             })
         })
 
+        //Webview ready
         el.addEventListener('dom-ready',()=>{
+            
+            //Send channel description over IPC
+            el.send('channelDescription',this.description)
+
             // el.openDevTools()
         })
 
-        this.debug('webview-binded2')
+        //Watch for IPC messages
+        el.addEventListener('ipc-message',(e)=>{
+
+            if (e.channel == 'openDevTools'){
+                el.openDevTools()
+            }
+            if (e.channel == 'closeDevTools'){
+                el.closeDevTools()
+            }
+        })
+
+        this.debug('webview-binded')
     }
 }
 </script>

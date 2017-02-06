@@ -2,9 +2,9 @@
     <div class="channel-slot">
         <template v-if="channel">
             <WebviewWrapper 
-                :src="srcFormal" 
+                :src="channel.entry" 
                 :preload="preloadSrc" 
-                :position="position"
+                :description="description"
             ></WebviewWrapper>
             <div class="legend">
                 <i>#{{ position }}</i><span>{{ channel.name }}</span>
@@ -27,8 +27,12 @@ export default {
         preloadSrc(){
             return 'file://' + this.$store.state.localPath + '/lib/TroncastChannel.js'
         },
-        srcFormal(){
-            return this.channel && this.channel.entry+'#?id='+this.channel.id+'&position='+this.position
+        description(){
+            return {
+                channelId: this.channel.id,
+                position: this.position,
+                customPreload: this.channel.preload
+            }
         }
     },
     watch:{
@@ -55,6 +59,7 @@ export default {
         bottom:0;
         left:2rem;
         font-size: 1.4rem;
+        pointer-events: none;
         
         i{
             padding:.5rem 1.4rem .2rem;
