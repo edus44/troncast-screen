@@ -9,6 +9,11 @@ const state = {
     localPath: '',
     remoteUri: '',
     channels: [],
+    disposition:{
+        horizontal: true,
+        reverse: false,
+        mosaic: true
+    },
     // slots: [null,'status',null,'decisionator'],
     // slots: []
     slots: [null]
@@ -32,6 +37,9 @@ const mutations = {
     },
     SELECT_CHANNEL(state,{channelId,index}){
         state.slots.splice(index,1,channelId)
+    },
+    TOGGLE_DISPOSITION(state,param){
+        state.disposition[param] = !state.disposition[param]
     }
 }
 
@@ -58,6 +66,9 @@ const actions = {
     sendSlots({state}){
         socket.emit('remote:slots',state.slots)
     },
+    sendDisposition({state}){
+        socket.emit('remote:disposition',state.disposition)
+    },
     requestData(){
         socket.emit('repository:request-list')
     }
@@ -79,6 +90,13 @@ socket.on('remote:add-slot',()=>{
 })
 socket.on('remote:request-slots',()=>{
     store.dispatch('sendSlots')
+})
+socket.on('remote:request-disposition',()=>{
+    store.dispatch('sendDisposition')
+})
+socket.on('remote:toggle-disposition',(param)=>{
+    store.commit('TOGGLE_DISPOSITION',param)
+    store.dispatch('sendDisposition')
 })
 
 export default store 

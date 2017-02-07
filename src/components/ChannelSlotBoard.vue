@@ -1,5 +1,9 @@
 <template>
-    <section class="channel-slot-board" :class="{horizontal,reverse,mosaic}">
+    <section class="channel-slot-board" :class="{
+        horizontal: disposition.horizontal,
+        reverse: disposition.reverse,
+        mosaic: disposition.mosaic
+    }">
         <ChannelSlot
             v-for="channel,index in channelList" 
             :channel="channel"
@@ -16,11 +20,6 @@
 import ChannelSlot from './ChannelSlot.vue'
 
 export default {
-    data:()=>({
-        horizontal: true,
-        reverse: false,
-        mosaic: true
-    }),
     computed:{
         channelList(){
             let {state} = this.$store
@@ -29,6 +28,9 @@ export default {
                     return channel.id == channelId
                 })
             })
+        },
+        disposition(){
+            return this.$store.state.disposition
         }
     },
     components: {ChannelSlot}
